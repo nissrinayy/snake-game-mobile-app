@@ -42,12 +42,22 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
   int score = 0;
   int highScore = 0;
   late Timer gameTimer;
-  double gameBoardSize = 300; // Default size, will be adjusted responsively
+  double gameBoardSize = 300;
+  bool showLogoPopup = true;
 
   @override
   void initState() {
     super.initState();
     resetGame();
+    
+    // Auto-hide logo popup after 3 seconds
+    Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          showLogoPopup = false;
+        });
+      }
+    });
   }
 
   void resetGame() {
@@ -87,6 +97,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
     
     setState(() {
       isPlaying = true;
+      showLogoPopup = false;
     });
     
     gameTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
@@ -95,10 +106,8 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
       }
       
       setState(() {
-        // Update direction
         direction = nextDirection;
         
-        // Calculate new head position
         Point<int> newHead = snake.first;
         switch (direction) {
           case Direction.up:
@@ -115,25 +124,19 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
             break;
         }
         
-        // Check for collisions with walls
-        if (newHead.x < 0 || 
-            newHead.x >= gridSize || 
-            newHead.y < 0 || 
-            newHead.y >= gridSize) {
+        if (newHead.x < 0 || newHead.x >= gridSize || 
+            newHead.y < 0 || newHead.y >= gridSize) {
           gameOver();
           return;
         }
         
-        // Check for collisions with self
         if (snake.contains(newHead)) {
           gameOver();
           return;
         }
         
-        // Move snake
         snake.insert(0, newHead);
         
-        // Check if food is eaten
         if (newHead == food) {
           score += 10;
           if (score > highScore) {
@@ -174,25 +177,104 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Calculate responsive game board size
     final screenSize = MediaQuery.of(context).size;
     gameBoardSize = min(screenSize.width, screenSize.height) * 0.7;
     
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Adjust layout for different screen orientations
-            final isPortrait = constraints.maxHeight > constraints.maxWidth;
-            
-            return isPortrait ? _buildPortraitLayout() : _buildLandscapeLayout();
-          },
+      body: Stack(
+        children: [
+          SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isPortrait = constraints.maxHeight > constraints.maxWidth;
+                return isPortrait ? _buildPortraitLayout() : _buildLandscapeLayout();
+              },
+            ),
+          ),
+          
+          if (showLogoPopup) _buildLogoPopup(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLogoPopup() {
+    return Container(
+      color: Colors.black.withOpacity(0.85),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Fixed image path - using your actual image path
+            Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: Colors.greenAccent, width: 4),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.5),
+                    blurRadius: 15,
+                    spreadRadius: 5,
+                  ),
+                ],
+                image: const DecorationImage(
+                  // Corrected path to your image
+                  image: AssetImage('assets/images/snake_logo.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ), 
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'SNAKE GAME',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.greenAccent,
+                letterSpacing: 2,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Classic Retro Adventure',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  showLogoPopup = false;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              child: const Text(
+                'PLAY NOW',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
+  // The rest of your methods remain unchanged...
   Widget _buildPortraitLayout() {
     return SingleChildScrollView(
       child: Padding(
@@ -200,7 +282,6 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Title
             const Text(
               'SNAKE GAME',
               style: TextStyle(
@@ -210,24 +291,14 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            
-            // Score display
             _buildScoreDisplay(),
             const SizedBox(height: 24),
-            
-            // Game board
             _buildGameBoard(),
             const SizedBox(height: 24),
-            
-            // Game controls
             _buildControlButtons(),
             const SizedBox(height: 16),
-            
-            // Game over message
             if (isGameOver) _buildGameOverMessage(),
             const SizedBox(height: 16),
-            
-            // Swipe instructions
             const Text(
               'Swipe on the game area to control the snake',
               style: TextStyle(
@@ -236,8 +307,6 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            
-            // Touch controls
             _buildTouchControls(),
           ],
         ),
@@ -251,7 +320,6 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left column - Game board
           Expanded(
             child: Column(
               children: [
@@ -276,10 +344,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
               ],
             ),
           ),
-          
           const SizedBox(width: 24),
-          
-          // Right column - Controls and info
           Expanded(
             child: Column(
               children: [
@@ -349,18 +414,12 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
   Widget _buildGameBoard() {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
-        if (details.delta.dy < -5) {
-          handleSwipe(Direction.up);
-        } else if (details.delta.dy > 5) {
-          handleSwipe(Direction.down);
-        }
+        if (details.delta.dy < -5) handleSwipe(Direction.up);
+        else if (details.delta.dy > 5) handleSwipe(Direction.down);
       },
       onHorizontalDragUpdate: (details) {
-        if (details.delta.dx < -5) {
-          handleSwipe(Direction.left);
-        } else if (details.delta.dx > 5) {
-          handleSwipe(Direction.right);
-        }
+        if (details.delta.dx < -5) handleSwipe(Direction.left);
+        else if (details.delta.dx > 5) handleSwipe(Direction.right);
       },
       child: Container(
         width: gameBoardSize,
@@ -477,13 +536,11 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
           ),
         ),
         const SizedBox(height: 16),
-        // Up button
         IconButton(
           icon: const Icon(Icons.keyboard_arrow_up, size: 40),
           color: Colors.white,
           onPressed: () => handleSwipe(Direction.up),
         ),
-        // Left/Right buttons
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -500,7 +557,6 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
             ),
           ],
         ),
-        // Down button
         IconButton(
           icon: const Icon(Icons.keyboard_arrow_down, size: 40),
           color: Colors.white,
