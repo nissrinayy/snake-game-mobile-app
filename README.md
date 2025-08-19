@@ -1,9 +1,3 @@
-Perfect 👍 thanks for sharing your full **Snake Game Flutter code**.
-I’ll create a **README.md** tailored exactly to this project, explaining its structure, features, and how to run it.
-
-Here’s a clean version you can use in your repo:
-
----
 
 # 🐍 Snake Game (Flutter)
 
@@ -95,6 +89,3 @@ pubspec.yaml
 * 🏆 Leaderboard system (Firebase integration)
 * 📱 Multiplayer mode
 
----
-
-👉 Would you like me to also **split your big `main.dart`** into smaller files (`snake.dart`, `food.dart`, `game_board.dart`) so the project looks cleaner and matches this README’s structure?
