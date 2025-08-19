@@ -78,6 +78,9 @@ pubspec.yaml
 
 ## 📸 Screenshots
 
+<img src="assets/screenshot1.png" alt="App Screenshot" width="300"/>
+
+
 
 
 ---
