@@ -1,16 +1,100 @@
-# snake_game
+Perfect 👍 thanks for sharing your full **Snake Game Flutter code**.
+I’ll create a **README.md** tailored exactly to this project, explaining its structure, features, and how to run it.
 
-A new Flutter project.
+Here’s a clean version you can use in your repo:
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+# 🐍 Snake Game (Flutter)
 
-A few resources to get you started if this is your first Flutter project:
+A modern take on the classic **Snake Game**, built entirely with **Flutter** and **Dart**.
+The snake grows as it eats food, but avoid colliding with the walls or yourself — or it’s game over! 🎮
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🎯 Features
+
+✅ Start, Pause, Resume, and Play Again options
+✅ Swipe controls **and** touch button controls
+✅ Dynamic **score & high score** tracking
+✅ Clean **portrait & landscape** responsive layout
+✅ Retro-style **Game Over screen**
+✅ Intro **logo splash popup** before gameplay
+
+---
+
+## 🛠️ Tech Stack
+
+* **Flutter** (UI & cross-platform framework)
+* **Dart** (game logic & state management)
+* **Material Design 3**
+
+---
+
+## 📂 Project Structure
+
+```
+lib/
+│── main.dart        # Main entry & UI
+│── snake.dart       # Snake model (inside main for now)
+│── food.dart        # Food logic (inside main for now)
+assets/
+│── images/snake_logo.jpg  # Logo image shown on intro popup
+pubspec.yaml
+```
+
+---
+
+## 🎮 How to Play
+
+1. Run the app on an Android/iOS device or emulator.
+2. **Swipe** on the game board or use the **arrow touch buttons** to move.
+
+   * ⬆️ Up
+   * ⬇️ Down
+   * ⬅️ Left
+   * ➡️ Right
+3. Eat red food 🍎 to grow and increase your score.
+4. Don’t hit the walls or your own body — or it’s **Game Over**.
+
+---
+
+## 🚀 Getting Started
+
+1. Clone this repo:
+
+   ```bash
+   git clone https://github.com/your-username/snake-game-mobile-app.git
+   cd snake-game-mobile-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+3. Run on emulator/device:
+
+   ```bash
+   flutter run
+   ```
+
+---
+
+## 📸 Screenshots
+
+
+
+---
+
+## 📌 Future Improvements
+
+* 🎵 Add background music & sound effects
+* 🎨 Skins for snake and food
+* 🏆 Leaderboard system (Firebase integration)
+* 📱 Multiplayer mode
+
+---
+
+👉 Would you like me to also **split your big `main.dart`** into smaller files (`snake.dart`, `food.dart`, `game_board.dart`) so the project looks cleaner and matches this README’s structure?
