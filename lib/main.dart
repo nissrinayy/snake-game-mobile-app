@@ -229,7 +229,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
               ), 
             ),
             const SizedBox(height: 30),
-
+            
             const Text(
               'SNAKE GAME',
               style: TextStyle(
