@@ -198,6 +198,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
       ),
     );
   }
+  
 
   Widget _buildLogoPopup() {
     return Container(
@@ -228,6 +229,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
               ), 
             ),
             const SizedBox(height: 30),
+
             const Text(
               'SNAKE GAME',
               style: TextStyle(
