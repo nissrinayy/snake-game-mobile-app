@@ -61,6 +61,7 @@ pubspec.yaml
    git clone https://github.com/your-username/snake-game-mobile-app.git
    cd snake-game-mobile-app
    ```
+   
 
 2. Install dependencies:
 
