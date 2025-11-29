@@ -14,7 +14,7 @@ The snake grows as it eats food, but avoid colliding with the walls or yourself 
 ✅ Dynamic **score & high score** tracking
 ✅ Clean **portrait & landscape** responsive layout
 ✅ Retro-style **Game Over screen**
-✅ Intro **logo splash popup** before gameplay
+✅ Intro **logo splash popup** before gameplay. 
  
  
 ---
