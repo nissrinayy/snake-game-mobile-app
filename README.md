@@ -1,5 +1,5 @@
            
-# 🐍 Snake Game (Flutter)            
+# 🐍 Snake Game (Flutter)             
 
 A modern take on the classic **Snake Game**, built entirely with **Flutter** and **Dart**.
 The snake grows as it eats food, but avoid colliding with the walls or yourself — or it’s game over! 🎮. 
