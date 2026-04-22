@@ -223,7 +223,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
                 ],
                 image: const DecorationImage(
                   // Corrected path to your image
-                  image: AssetImage('assets/images/snake_logo.jpg'),
+                  image: AssetImage('assets/images/snake_logo.png'),
                   fit: BoxFit.cover,
                 ),
               ), 
