@@ -52,7 +52,7 @@ pipeline {
         // ================= CHECKOUT =================
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/nissrinayy/Neumorphic-Calculator.git'
+                git branch: 'main', url: 'https://github.com/nissrinayy/snake-game-mobile-app.git'
             }
         }
 
@@ -99,7 +99,7 @@ pipeline {
                     bat "\"${AAPT}\" dump badging \"${apkPath}\" | findstr package"
 
                     def timestamp = new Date().format("yyyyMMdd_HHmmss")
-                    def finalApk = "${env.WORKSPACE}\\apk-outputs\\calculator-${params.BUILD_TYPE}-${timestamp}.apk"
+                    def finalApk = "${env.WORKSPACE}\\apk-outputs\\snake-game-${params.BUILD_TYPE}-${timestamp}.apk"
 
                     bat "copy \"${apkPath}\" \"${finalApk}\""
 
@@ -137,7 +137,7 @@ pipeline {
                     bat "adb install -r \"${env.FINAL_APK}\""
 
                     echo "Installed apps:"
-                    bat "adb shell pm list packages | findstr ragheb"
+                    bat "adb shell pm list packages | findstr snake_game"
                 }
             }
         }
